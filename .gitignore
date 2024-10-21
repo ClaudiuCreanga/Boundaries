@@ -1,0 +1,10 @@
+.ipynb_checkpoints/
+__pycache__
+Artificial_Langs/random_distances_hamming.txt
+Artificial_Langs/188params/random_distances_jaccard.txt
+Artificial_Langs/safe/random_distances_jaccard.txt
+Artificial_Langs/new_families/random_distances_jaccard.txt
+Artificial_Langs/random_distances_jaccard.txt
+Artificial_Langs/safe/random_distances_hamming.txt
+Artificial_Langs/188params/random_distances_hamming.txt
+Artificial_Langs/new_families/random_distances_hamming.txt

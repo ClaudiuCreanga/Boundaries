@@ -11,14 +11,103 @@ This script is used to generate artificial distances'''
 
 import random, sys
 
+
 ###DEFINE EMPIRICAL RATIO
 def setp(num):
-    ratio = ['Ratio', 0.933, 0.786, 0.929, 0.141, 0.857, 0.333, 1.0, 0.0, 0.5, 0.75, 0.996, 0.067, 0.411, 0.375, 0.649, 0.0, 0.243,
-     0.154, 0.595, 0.246, 0.25, 0.333, 0.048, 0.222, 0.056, 1.0, 0.5, 0.083, 0.0, 0.564, 0.522, 0.75, 0.833, 0.76, 0.0,
-     0.978, 0.077, 0.278, 0.267, 0.182, 0.2, 0.667, 0.25, 0.333, 0.545, 0.049, 0.007, 0.571, 0.0, 0.067, 0.002, 0.356,
-     0.2, 0.418, 0.0, 0.08, 0.044, 0.6, 0.415, 0.375, 0.183, 0.631, 0.792, 0.833, 0.333, 0.8, 0.75, 1.0, 0.0, 0.4,
-     0.333, 0.333, 0.1, 0.359, 0.5, 0.625, 1.0, 1.0, 0.143, 0.187, 0.045, 0.1, 0.4, 0.333, 0.175, 0.0, 0.45, 0.618,
-     0.611, 0.55, 0.25, 0.25, 0.875, 0.534]
+    ratio = ['Ratio', 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 1.0,
+ 0.0,
+ 0.5,
+ 0.5,
+ 0.996,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.0,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 1.0,
+ 0.5,
+ 0.5,
+ 0.0,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.0,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.007,
+ 0.5,
+ 0.0,
+ 0.5,
+ 0.002,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.0,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 1.0,
+ 0.0,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 1.0,
+ 1.0,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.0,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5,
+ 0.5]
     r = random.random()
     if r < ratio[num]:
         return "+"
@@ -565,13 +654,50 @@ def jaccard(P1, P2):
     dist = dif / (dif + id)
     return dist
 
-####GENERATE DISTANCES
-def distance(number):
+
+def hamming(P1, P2):
+    """Computes the Hamming distance between two strings.
+
+    Args:
+        P1: The first string.
+        P2: The second string.
+
+    Returns:
+        The Hamming distance between the two strings.
+    """
+
+    # Check if the strings are the same length
+    if len(P1) != len(P2):
+        raise ValueError("Strings must be the same length. Hamming extension must be implemented for different string lengths.")
+
+    # Initialize a counter for the number of mismatches
+    num_mismatches = 0
+    length = 0
+
+    # Iterate over the strings and count the number of mismatches
+    # this excludes the 0 items and their index in the other string
+    for char1, char2 in zip(P1, P2):
+        if char1 != '0' and char2 != '0':
+            length += 1
+            if char1 != char2:
+                num_mismatches += 1
+
+    normalized_hamming_distance = num_mismatches / length
+
+    return normalized_hamming_distance
+
+
+def generate_languages(number):
     #run generator() to create a number of possible language
-    random_sample = []    
+    random_sample = []
     for i in range(number):
         lang = generator()
         random_sample.append(lang)
+
+    return random_sample
+
+####GENERATE DISTANCES
+def distance_jaccard(random_sample):
     #create a list of pairwise distances
     dist_list=[]
     for i in range(len(random_sample)):
@@ -586,11 +712,42 @@ def distance(number):
     return dist_list
 
 
+def distance_hamming(random_sample):
+    #create a list of pairwise distances
+    dist_list=[]
+    for i in range(len(random_sample)):
+        print(i)
+        p0 = random_sample[i]
+        for j in range(i + 1, len(random_sample)):
+    #calculate the distance between the strings
+            dist = hamming(p0, random_sample[j])
+            dist_round=round(dist, 3)
+            dist_list.append(dist_round)
+    dist_list.sort()
+    return dist_list
+
+
 if __name__ == "__main__":
-    result = distance(int(sys.argv[1]))
-    f = open('random_langs.txt', 'w')
+    languages = generate_languages(int(sys.argv[1]))
+    fs = open('random_langs_strings_one_language.txt', 'w')
+    for language in languages:
+        fs.write(" ".join(language))
+        fs.write('\n')
+    fs.close()
+
+    result = distance_jaccard(languages)
+    f = open('random_distances_jaccard_one_language.txt', 'w')
     for lang in result:
         f.write('Random' + ', ' + str(lang))
         f.write('\n')
+
+    f.close()
+
+    result = distance_hamming(languages)
+    f = open('random_distances_hamming_one_language.txt', 'w')
+    for lang in result:
+        f.write('Random' + ', ' + str(lang))
+        f.write('\n')
+
     f.close()
 

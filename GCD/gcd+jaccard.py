@@ -45,6 +45,37 @@ def jaccard_syn(P1, P2):
     dist = dif / (dif + id)
     return dist
 
+def hamming_syn(P1, P2):
+    """Computes the Hamming distance between two strings.
+
+    Args:
+        P1: The first string.
+        P2: The second string.
+
+    Returns:
+        The Hamming distance between the two strings.
+    """
+
+    # Check if the strings are the same length
+    if len(P1) != len(P2):
+        raise ValueError("Strings must be the same length. Hamming extension must be implemented for different string lengths.")
+
+    # Initialize a counter for the number of mismatches
+    num_mismatches = 0
+    length = 0
+
+    # Iterate over the strings and count the number of mismatches
+    # this excludes the 0 items and their index in the other string
+    for char1, char2 in zip(P1, P2):
+        if char1 != '0' and char2 != '0':
+            length += 1
+            if char1 != char2:
+                num_mismatches += 1
+
+    normalized_hamming_distance = num_mismatches / length
+
+    return normalized_hamming_distance
+
 def get_syn(parameters):
     syn_list = []
     lang_syn = [line.split()[0] for line in open(parameters, 'r')]
@@ -54,7 +85,7 @@ def get_syn(parameters):
             for lang2 in pars[index+1:]:
                 L1 = lang1.split()
                 L2 = lang2.split()
-                syn_list.append([L1[0]+'-'+L2[0], round(jaccard_syn(L1,L2), 3)])
+                syn_list.append([L1[0]+'-'+L2[0], round(hamming_syn(L1,L2), 3)])
     return lang_syn, syn_list
 
 

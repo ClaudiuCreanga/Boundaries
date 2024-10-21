@@ -50,6 +50,37 @@ def compute_distance(lang1,lang2):
     d = differences / (identities + differences)
     return d
 
+def hamming(P1, P2):
+    """Computes the Hamming distance between two strings.
+
+    Args:
+        P1: The first string.
+        P2: The second string.
+
+    Returns:
+        The Hamming distance between the two strings.
+    """
+
+    # Check if the strings are the same length
+    if len(P1) != len(P2):
+        raise ValueError("Strings must be the same length. Hamming extension must be implemented for different string lengths.")
+
+    # Initialize a counter for the number of mismatches
+    num_mismatches = 0
+    length = 0
+
+    # Iterate over the strings and count the number of mismatches
+    # this excludes the 0 items and their index in the other string
+    for char1, char2 in zip(P1, P2):
+        if char1 != '0' and char2 != '0':
+            length += 1
+            if char1 != char2:
+                num_mismatches += 1
+
+    normalized_hamming_distance = num_mismatches / length
+
+    return normalized_hamming_distance
+
     
 """
 Computes the distance matrix
@@ -60,7 +91,7 @@ def compute_distance_matrix(lang_table):
     for i in range(n-1):
         for j in range(i+1,n):
             #computes pairwise distances
-            D[i][j] = D[j][i] = compute_distance(lang_table[i],lang_table[j])
+            D[i][j] = D[j][i] = hamming(lang_table[i],lang_table[j])
     return D    
 
 """
