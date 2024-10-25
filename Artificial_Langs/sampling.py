@@ -14,7 +14,7 @@ import random, sys
 
 ###DEFINE EMPIRICAL RATIO
 def setp(num):
-    ratio = ['Ratio', 0.5,
+    ratio = ['Ratio',0.5,
  0.5,
  0.5,
  0.5,
@@ -39,6 +39,7 @@ def setp(num):
  0.5,
  0.5,
  0.5,
+ 0.5,
  1.0,
  0.5,
  0.5,
@@ -60,7 +61,7 @@ def setp(num):
  0.5,
  0.5,
  0.5,
- 0.007,
+ 0.5,
  0.5,
  0.0,
  0.5,
@@ -106,10 +107,10 @@ def setp(num):
  0.5,
  0.5,
  0.5,
- 0.5,
  0.5]
     r = random.random()
-    if r < ratio[num]:
+    if r < 0.5:
+        # if r < ratio[num]:
         return "+"
     else:
         return "-"
@@ -729,22 +730,22 @@ def distance_hamming(random_sample):
 
 if __name__ == "__main__":
     languages = generate_languages(int(sys.argv[1]))
-    fs = open('random_langs_strings_one_language.txt', 'w')
-    for language in languages:
-        fs.write(" ".join(language))
-        fs.write('\n')
-    fs.close()
-
-    result = distance_jaccard(languages)
-    f = open('random_distances_jaccard_one_language.txt', 'w')
-    for lang in result:
-        f.write('Random' + ', ' + str(lang))
-        f.write('\n')
-
-    f.close()
+    # fs = open('random_langs_strings_one_language.txt', 'w')
+    # for language in languages:
+    #     fs.write(" ".join(language))
+    #     fs.write('\n')
+    # fs.close()
+    #
+    # result = distance_jaccard(languages)
+    # f = open('random_distances_jaccard_one_language.txt', 'w')
+    # for lang in result:
+    #     f.write('Random' + ', ' + str(lang))
+    #     f.write('\n')
+    #
+    # f.close()
 
     result = distance_hamming(languages)
-    f = open('random_distances_hamming_one_language.txt', 'w')
+    f = open('random_distances_hamming_no_ratios.txt', 'w')
     for lang in result:
         f.write('Random' + ', ' + str(lang))
         f.write('\n')

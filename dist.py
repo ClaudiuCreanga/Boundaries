@@ -73,7 +73,7 @@ def main_hamming(parameters):
                 L2 = lang2.split()
                 dist[L1[0]][L2[0]] = round(hamming(L1,L2), 3)
     #print dictionary in matrix format
-    output = open('TableS3_hamming_revised_4', 'w')
+    output = open('TableS3_revised2', 'w')
     output.write('\t' + '\t'.join(languages) + '\n')
     for lang in languages:
         output.write(lang + '\t' + '\t'.join([str(dist[lang][lang2]) for lang2 in languages]) + '\n')
@@ -104,5 +104,5 @@ def main_jaccard(parameters):
 
 
 if __name__ == '__main__':
-    main_jaccard(sys.argv[1])
+    # main_jaccard(sys.argv[1])
     main_hamming(sys.argv[1])
