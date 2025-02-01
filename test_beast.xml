@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='Standard' beautistatus='' namespace="beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.base.evolution.alignment:beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.tree.coalescent:beast.pkgmgmt:beast.base.core:beast.base.inference.util:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.evolution.substitutionmodel:beast.base.evolution.likelihood" required="BEAST.base v2.7.7:MM v1.2.1" version="2.7">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='Standard' beautistatus='' namespace="breakaway.core:breakaway.evolution.alignment:breakaway.evolution.tree.coalescent:breakaway.core.util:breakaway.evolution.nuc:breakaway.evolution.operators:breakaway.evolution.sitemodel:breakaway.evolution.substitutionmodel:breakaway.base.evolution.alignment:breakaway.pkgmgmt:breakaway.base.core:breakaway.base.inference:breakaway.base.evolution.tree.coalescent:breakaway.pkgmgmt:breakaway.base.core:breakaway.base.inference.util:breakaway.evolution.nuc:breakaway.base.evolution.operator:breakaway.base.inference.operator:breakaway.base.evolution.sitemodel:breakaway.base.evolution.substitutionmodel:breakaway.base.evolution.likelihood" required="breakaway.base v2.7.7:MM v1.2.1" version="2.7">
 
     <data
 id="output"
@@ -63,33 +63,33 @@ name="alignment">
         <sequence id="seq_Wolof" spec="Sequence" taxon="Wolof" totalcount="2" value="110?1?1??0?110101??1?1?00???00110???1??1?1???????00000???01011010????????0?????010??00?1?0????"/>
         <sequence id="seq_Yakut" spec="Sequence" taxon="Yakut" totalcount="2" value="11101?1??110001000??????????0011111010?000???0???0000?00010???1?1????????????????????????1????"/>
         <sequence id="seq_Yukaghir" spec="Sequence" taxon="Yukaghir" totalcount="2" value="11101?1??110001000??????????001110??100011???10??0001????00???1?1???????????????0????????0???1"/>
-        <userDataType id="StandardData.0" spec="beast.base.evolution.datatype.StandardData" ambiguities="" nrOfStates="2"/>
+        <userDataType id="StandardData.0" spec="breakaway.base.evolution.datatype.StandardData" ambiguities="" nrOfStates="2"/>
         <dataType id="standard"/>
     </data>
 
-    <map name="Uniform" >beast.base.inference.distribution.Uniform</map>
+    <map name="Uniform" >breakaway.base.inference.distribution.Uniform</map>
 
-    <map name="Exponential" >beast.base.inference.distribution.Exponential</map>
+    <map name="Exponential" >breakaway.base.inference.distribution.Exponential</map>
 
-    <map name="LogNormal" >beast.base.inference.distribution.LogNormalDistributionModel</map>
+    <map name="LogNormal" >breakaway.base.inference.distribution.LogNormalDistributionModel</map>
 
-    <map name="Normal" >beast.base.inference.distribution.Normal</map>
+    <map name="Normal" >breakaway.base.inference.distribution.Normal</map>
 
-    <map name="Beta" >beast.base.inference.distribution.Beta</map>
+    <map name="Beta" >breakaway.base.inference.distribution.Beta</map>
 
-    <map name="Gamma" >beast.base.inference.distribution.Gamma</map>
+    <map name="Gamma" >breakaway.base.inference.distribution.Gamma</map>
 
-    <map name="LaplaceDistribution" >beast.base.inference.distribution.LaplaceDistribution</map>
+    <map name="LaplaceDistribution" >breakaway.base.inference.distribution.LaplaceDistribution</map>
 
-    <map name="prior" >beast.base.inference.distribution.Prior</map>
+    <map name="prior" >breakaway.base.inference.distribution.Prior</map>
 
-    <map name="InverseGamma" >beast.base.inference.distribution.InverseGamma</map>
+    <map name="InverseGamma" >breakaway.base.inference.distribution.InverseGamma</map>
 
-    <map name="OneOnX" >beast.base.inference.distribution.OneOnX</map>
+    <map name="OneOnX" >breakaway.base.inference.distribution.OneOnX</map>
 
     <run id="mcmc" spec="MCMC" chainLength="10000000">
         <state id="state" spec="State" storeEvery="5000">
-            <tree id="Tree.t:output" spec="beast.base.evolution.tree.Tree" name="stateNode">
+            <tree id="Tree.t:output" spec="breakaway.base.evolution.tree.Tree" name="stateNode">
                 <taxonset id="TaxonSet.output" spec="TaxonSet">
                     <alignment idref="output"/>
                 </taxonset>
@@ -103,7 +103,7 @@ name="alignment">
         </init>
         <distribution id="posterior" spec="CompoundDistribution">
             <distribution id="prior" spec="CompoundDistribution">
-                <distribution id="YuleModel.t:output" spec="beast.base.evolution.speciation.YuleModel" birthDiffRate="@birthRate.t:output" tree="@Tree.t:output"/>
+                <distribution id="YuleModel.t:output" spec="breakaway.base.evolution.speciation.YuleModel" birthDiffRate="@birthRate.t:output" tree="@Tree.t:output"/>
                 <prior id="YuleBirthRatePrior.t:output" name="distribution" x="@birthRate.t:output">
                     <Uniform id="Uniform.1" name="distr" upper="Infinity"/>
                 </prior>
@@ -118,7 +118,7 @@ name="alignment">
                             <datatype idref="standard"/>
                         </substModel>
                     </siteModel>
-                    <branchRateModel id="StrictClock.c:output" spec="beast.base.evolution.branchratemodel.StrictClockModel">
+                    <branchRateModel id="StrictClock.c:output" spec="breakaway.base.evolution.branchratemodel.StrictClockModel">
                         <parameter id="clockRate.c:output" spec="parameter.RealParameter" estimate="false" lower="0.0" name="clock.rate">1.0</parameter>
                     </branchRateModel>
                 </distribution>
@@ -139,7 +139,7 @@ name="alignment">
             <log idref="likelihood"/>
             <log idref="prior"/>
             <log idref="treeLikelihood.output"/>
-            <log id="TreeHeight.t:output" spec="beast.base.evolution.tree.TreeStatLogger" tree="@Tree.t:output"/>
+            <log id="TreeHeight.t:output" spec="breakaway.base.evolution.tree.TreeStatLogger" tree="@Tree.t:output"/>
             <log idref="YuleModel.t:output"/>
             <log idref="birthRate.t:output"/>
         </logger>
@@ -149,7 +149,7 @@ name="alignment">
             <log idref="prior"/>
         </logger>
         <logger id="treelog.t:output" spec="Logger" fileName="$(filebase)-$(tree).trees" logEvery="1000" mode="tree">
-            <log id="TreeWithMetaDataLogger.t:output" spec="beast.base.evolution.TreeWithMetaDataLogger" tree="@Tree.t:output"/>
+            <log id="TreeWithMetaDataLogger.t:output" spec="breakaway.base.evolution.TreeWithMetaDataLogger" tree="@Tree.t:output"/>
         </logger>
         <operatorschedule id="OperatorSchedule" spec="OperatorSchedule"/>
     </run>
